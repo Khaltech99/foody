@@ -4,25 +4,40 @@ import { ChevronRight, Utensils } from "lucide-react";
 import ViewAll from "./ViewAll";
 import RecommendedCard from "./RecommendedCard";
 import { useMealStore } from "../../useMealStore";
+import FoodList from "../components/FoodList";
 
 const Categories = () => {
   const categories = useMealStore((state) => state.categories);
   const fetchCategories = useMealStore((state) => state.fetchCategories);
+  const loading = useMealStore((state) => state.loading);
 
   // FETCHING THE CATEGORIES
   useEffect(() => {
     fetchCategories();
-  }, [fetchCategories]); // Remove categories from dependencies
+  }, [fetchCategories]);
 
   return (
     <>
       <ViewAll>Recipe categories</ViewAll>
 
-      <div className="flex gap-2 scroll-auto overflow-x-auto mt-3">
-        {categories.slice(0, 5).map((category) => (
+      {loading && (
+        <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center w-7 h-7 md:h-10 md:w-10 border-4 border-b-neutral-300 rounded-full animate-spin" />
+        </div>
+      )}
+
+      <div
+        className="flex gap-2 overflow-x-auto my-3 pb-2 md:mx-10"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          WebkitOverflowScrolling: "touch",
+        }}
+      >
+        {categories.slice(0, 10).map((category) => (
           <Button
             key={category.idCategory}
-            className="justify-between items-center bg-neutral-100 shadow-sm w-full px-2 rounded-lg"
+            className="justify-between items-center bg-neutral-100 shadow-sm flex-shrink-0 min-w-[150px] px-2 rounded-lg"
           >
             <Utensils className="bg-white rounded-lg w-8 h-8 p-2" />
             <p className="text-sm text-neutral-500">{category.strCategory}</p>
@@ -30,6 +45,8 @@ const Categories = () => {
           </Button>
         ))}
       </div>
+      <FoodList />
+
       <ViewAll>recommended to try out</ViewAll>
       <RecommendedCard />
     </>
