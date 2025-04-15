@@ -7,7 +7,7 @@ const Hero = () => {
       <h2 className=" text-lg capitalize mt-5 mb-4 font-[Poppins] text-[#333333] font-semibold md:text-3xl md:text-center md:tracking-wider">
         what would you like to cook today?
       </h2>
-      <div className="flex flex-1 justify-between rounded-lg bg-neutral-100 items-center p-3 ">
+      <div className="flex flex-1 justify-between rounded-lg bg-neutral-100 items-center p-3">
         <div className="flex justify-center items-center gap-2 flex-1">
           <Search />
           <input
