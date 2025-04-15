@@ -4,9 +4,9 @@ import { Bookmark } from "lucide-react";
 
 const RecommendedCard = () => {
   return (
-    <div className=" bg-black flex p-5 mt-4 rounded-lg justify-between items-center text-base">
-      <Button className="text-white bg-[#444444] w-fit justify-center items-center p-3 capitalize">
-        breafast
+    <div className=" bg-[#222222] flex p-5 mt-4 rounded-lg justify-between items-start  text-base h-48">
+      <Button className="text-white bg-[#444444] flex justify-center items-center p-3 capitalize">
+        breakfast
       </Button>
       <Bookmark
         color="black"
