@@ -67,4 +67,27 @@ export const useMealStore = create((set, get) => ({
     const selected = get().selectedCategory === categoryName;
     return selected;
   },
+
+  search: async (searchTerm) => {
+    try {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchTerm}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`unable to get ${searchTerm}`);
+      }
+
+      const data = await response.json();
+
+      set({
+        loading: false,
+        meals: data.meals,
+      });
+    } catch (error) {
+      set({ loading: false, selected: false });
+      console.log(error);
+      set({ error: true });
+    }
+  },
 }));

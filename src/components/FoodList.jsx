@@ -7,25 +7,39 @@ const FoodList = () => {
   const meals = useMealStore((state) => state.meals);
   const fetchMeals = useMealStore((state) => state.fetchMeals);
   const error = useMealStore((state) => state.error);
-
-  //   const loading = useMealStore((state) => state.loading); //review
+  const loading = useMealStore((state) => state.loading);
 
   useEffect(() => {
     fetchMeals();
   }, [fetchMeals]);
 
-  error && <h1>error fetching meals</h1>;
+  // Handle error state
+  if (error) {
+    return <h1>Error fetching meals</h1>;
+  }
+
+  // Handle loading state
+  if (loading) {
+    return <h1>Loading meals...</h1>;
+  }
+
+  // Handle case where meals is null or not an array
+  if (!meals || !Array.isArray(meals) || meals.length === 0) {
+    return <h1>No meals found. Try another search.</h1>;
+  }
+
+  // Now we can safely use array methods on meals
   return (
     <Masonry
       columnProps={{
         className: "custom-column",
         style: { width: "100%" },
       }}
-      columns={{ 640: 1, 768: 2, 1024: 3 }}
+      columns={{ 640: 1, 768: 2, 1024: 4 }}
       gap={16}
-      items={meals}
+      items={meals.slice(0, 10)}
     >
-      {meals.slice(0, 9).map((meal) => (
+      {meals.slice(0, 10).map((meal) => (
         <div
           key={meal.idMeal}
           className="cursor-pointer w-full h-auto mb-4 flex-col flex justify-center items-center bg-neutral-200 shadow rounded-lg overflow-hidden gap-y-0.5"
