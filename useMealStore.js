@@ -6,6 +6,7 @@ export const useMealStore = create((set, get) => ({
   meals: [],
   selectedCategory: null,
   loading: true,
+  error: false,
 
   //FUNCTIONS
   fetchCategories: async () => {
@@ -20,6 +21,7 @@ export const useMealStore = create((set, get) => ({
       set({ loading: false, categories: data.categories });
     } catch (error) {
       console.log(error);
+      set({ error: true });
     }
   },
   fetchMeals: async () => {
@@ -34,6 +36,7 @@ export const useMealStore = create((set, get) => ({
       set({ loading: false, meals: data.meals });
     } catch (error) {
       console.log(error);
+      set({ error: true });
     }
   },
 
@@ -57,6 +60,7 @@ export const useMealStore = create((set, get) => ({
     } catch (error) {
       set({ loading: false, selected: false });
       console.log(error);
+      set({ error: true });
     }
   },
   isCategorySelected: (categoryName) => {

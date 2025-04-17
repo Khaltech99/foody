@@ -6,6 +6,7 @@ import Masonry from "react-layout-masonry";
 const FoodList = () => {
   const meals = useMealStore((state) => state.meals);
   const fetchMeals = useMealStore((state) => state.fetchMeals);
+  const error = useMealStore((state) => state.error);
 
   //   const loading = useMealStore((state) => state.loading); //review
 
@@ -13,6 +14,7 @@ const FoodList = () => {
     fetchMeals();
   }, [fetchMeals]);
 
+  error && <h1>error fetching meals</h1>;
   return (
     <Masonry columns={{ 640: 1, 768: 2, 1024: 3 }} gap={16}>
       {meals.map((meal) => (
