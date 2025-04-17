@@ -16,11 +16,19 @@ const FoodList = () => {
 
   error && <h1>error fetching meals</h1>;
   return (
-    <Masonry columns={{ 640: 1, 768: 2, 1024: 3 }} gap={16}>
-      {meals.map((meal) => (
+    <Masonry
+      columnProps={{
+        className: "custom-column",
+        style: { width: "100%" },
+      }}
+      columns={{ 640: 1, 768: 2, 1024: 3 }}
+      gap={16}
+      items={meals}
+    >
+      {meals.slice(0, 9).map((meal) => (
         <div
           key={meal.idMeal}
-          className="w-full h-auto mb-4 flex-col flex justify-center items-center bg-neutral-200 shadow rounded-lg overflow-hidden gap-y-0.5"
+          className="cursor-pointer w-full h-auto mb-4 flex-col flex justify-center items-center bg-neutral-200 shadow rounded-lg overflow-hidden gap-y-0.5"
         >
           <img
             src={meal?.strMealThumb}
@@ -30,7 +38,7 @@ const FoodList = () => {
           <div className="flex w-full text-white gap-2 justify-center items-center bg-red-700 p-2 h-10">
             <CookingPot size={18} />
             <p className="text-sm font-semibold capitalize text-white truncate">
-              {meal?.strMeal}
+              {meal?.strMeal.split(" ").slice(0, 5).join(" ") + "..."}
             </p>
           </div>
           {meal.strArea && (
