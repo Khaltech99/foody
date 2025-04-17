@@ -38,7 +38,7 @@ const Categories = () => {
           WebkitOverflowScrolling: "touch",
         }}
       >
-        {categories.slice(0, 10).map((category) => (
+        {categories.slice(0, 5).map((category) => (
           <Button
             key={category.idCategory}
             className={`${
