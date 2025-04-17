@@ -10,6 +10,10 @@ const Categories = () => {
   const categories = useMealStore((state) => state.categories);
   const fetchCategories = useMealStore((state) => state.fetchCategories);
   const loading = useMealStore((state) => state.loading);
+  const fetchMealByCategories = useMealStore(
+    (state) => state.fetchMealByCategories
+  );
+  const isCategorySelected = useMealStore((state) => state.isCategorySelected);
 
   // FETCHING THE CATEGORIES
   useEffect(() => {
@@ -27,7 +31,7 @@ const Categories = () => {
       )}
 
       <div
-        className="flex gap-2 overflow-x-auto my-3 pb-2 md:mx-10"
+        className="flex gap-2 overflow-x-auto my-3 pb-2 md:mx-10 md:flex-wrap md:justify-center scrollbar-hide"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
@@ -37,7 +41,12 @@ const Categories = () => {
         {categories.slice(0, 10).map((category) => (
           <Button
             key={category.idCategory}
-            className="justify-between items-center bg-neutral-100 shadow-sm flex-shrink-0 min-w-[150px] px-2 rounded-lg"
+            className={`${
+              isCategorySelected(category.strCategory)
+                ? "border-1 border-black"
+                : ""
+            } justify-between items-center bg-neutral-100 shadow-sm flex-shrink-0 w-fit px-2 rounded-lg`}
+            onClick={() => fetchMealByCategories(category.strCategory)}
           >
             <Utensils className="bg-white rounded-lg w-8 h-8 p-2" />
             <p className="text-sm text-neutral-500">{category.strCategory}</p>
