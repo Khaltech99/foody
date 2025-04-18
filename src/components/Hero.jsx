@@ -1,7 +1,16 @@
 import { Search, SlidersHorizontal } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { useMealStore } from "../../useMealStore";
 
 const Hero = () => {
+  const [searchItem, setSearchItem] = useState("");
+  const search = useMealStore((state) => state.search);
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      return search(searchItem);
+    }
+  };
+
   return (
     <div className="font-[Poppins]">
       <h2 className=" text-lg capitalize mt-5 mb-4 font-[Poppins] text-[#333333] font-semibold md:text-3xl md:text-center md:tracking-wider">
@@ -14,6 +23,9 @@ const Hero = () => {
             type="text"
             placeholder="search any type of recipe you want"
             className="text-sm outline-none bg-none w-full md:text-base"
+            onKeyDown={handleSearch}
+            onChange={(e) => setSearchItem(e.target.value)}
+            value={searchItem}
           />
         </div>
         <SlidersHorizontal

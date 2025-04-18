@@ -4,13 +4,13 @@ import { Facebook, Instagram, Search, Twitter } from "lucide-react";
 import { useMealStore } from "../../useMealStore";
 
 const Footer = () => {
-  const search = useMealStore((state) => state.search);
   const [searchItem, setSearchItem] = useState("");
+  const search = useMealStore((state) => state.search);
 
-  const handleSearch = (query) => {
-    // Call the search function from your store
-    search(query);
-    setSearchItem("");
+  const handleSearch = (e) => {
+    if (e.key === "Enter") {
+      return search(searchItem);
+    }
   };
 
   return (
@@ -45,13 +45,9 @@ const Footer = () => {
             type="text"
             placeholder="search any type of recipe you want"
             onChange={(e) => setSearchItem(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch(searchItem);
-              }
-            }}
             className="text-sm outline-none bg-none w-full md:text-base"
             value={searchItem}
+            onKeyDown={handleSearch}
           />
           <div className="bg-black w-fit p-3 text-white rounded-lg">
             <Search />

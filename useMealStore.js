@@ -4,6 +4,7 @@ export const useMealStore = create((set, get) => ({
   //DECLARATIONS
   categories: [],
   meals: [],
+
   selectedCategory: null,
   loading: true,
   error: false,
@@ -69,23 +70,17 @@ export const useMealStore = create((set, get) => ({
   },
 
   search: async (searchTerm) => {
+    set({ loading: true });
     try {
       const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?f=${searchTerm}`
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`
       );
-
       if (!response.ok) {
-        throw new Error(`unable to get ${searchTerm}`);
+        throw new Error(`error fetching ${searchTerm} `);
       }
-
       const data = await response.json();
-
-      set({
-        loading: false,
-        meals: data.meals,
-      });
+      set({ loading: false, meals: data.meals });
     } catch (error) {
-      set({ loading: false, selected: false });
       console.log(error);
       set({ error: true });
     }

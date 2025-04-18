@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { CookingPot, Map } from "lucide-react";
 import { useMealStore } from "../../useMealStore";
 import Masonry from "react-layout-masonry";
+import LoadingMeals from "./LoadingMeals";
 
 const FoodList = () => {
   const meals = useMealStore((state) => state.meals);
@@ -19,8 +20,12 @@ const FoodList = () => {
   }
 
   // Handle loading state
-  if (loading) {
-    return <h1>Loading meals...</h1>;
+  {
+    loading && (
+      <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center w-7 h-7 md:h-10 md:w-10 border-4 border-b-neutral-300 rounded-full animate-spin" />
+      </div>
+    );
   }
 
   // Handle case where meals is null or not an array
